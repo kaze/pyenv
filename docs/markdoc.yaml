@@ -1,0 +1,19 @@
+wiki-name: pyenv documentation
+markdown:
+    extensions:
+        - codehilite
+        - abbr
+        - codehilite
+        - def_list
+        - extra
+        - fenced_code
+        - footnotes
+        - headerid
+        - html_tidy
+        - imagelinks
+        - meta
+        - rss
+        - tables
+        - toc
+        - wikilinks
+
