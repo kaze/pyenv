@@ -92,12 +92,12 @@ class Environment(object):
             self.set_current_environment(filepath)
 
     def get_app_settings(self):
-        env = self.get_current_env()
+        env = self.get_current_environment()
 
-        app_settings = "{}.config.environments.{}".format(self.app_name, env)
+        app_settings = "config.environments.{}".format(env)
         settings_file = importlib.import_module(app_settings)
 
-        return settings_file.Settings
+        return settings_file.Settings()
 
     def get_settings(self):
         self.set_environment()
