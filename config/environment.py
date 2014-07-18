@@ -1,5 +1,4 @@
 import importlib
-import logging
 import os
 import sys
 
@@ -76,7 +75,6 @@ class Environment(object):
 
     def set_current_environment(self, filepath):
         current_env = self.get_current_environment()
-        logging.info('Setting up "{}" environment.'.format(current_env))
         self.set('APP_ENV', current_env)
 
     def set_environment(self, filepath=None):
@@ -84,11 +82,9 @@ class Environment(object):
 
         try:
             self.parser.parse_file(filepath)
-            logging.info('Environment settings file ("{}") found.'.format(filepath))
             self.set_current_environment(filepath)
 
         except IOError:
-            logging.info('Environment settings file ("{}") not found.'.format(filepath))
             self.set_current_environment(filepath)
 
     def get_app_settings(self):
