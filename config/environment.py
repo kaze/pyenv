@@ -91,7 +91,7 @@ class Environment(object):
         app_settings = "{}.config.environments.{}".format(self.app_name, env)
         settings_file = importlib.import_module(app_settings)
 
-        return settings_file.Settings()
+        return settings_file.Settings(environment=self)
 
     def get_settings(self):
         self.set_environment()
