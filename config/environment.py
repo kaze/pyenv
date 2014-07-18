@@ -52,11 +52,9 @@ class EnvironmentSettingsParser(object):
 
 class Environment(object):
     def __init__(self, settings_file='.env', app_name=None):
-        app_name = app_name or os.path.basename(os.getcwd())
-
         self.parser = EnvironmentSettingsParser()
+        self.app_name = app_name
         self.env_file = self.fetch('ENVIRONMENT_SETTINGS_FILE', settings_file)
-        self.app_name = self.fetch('APP_NAME', app_name)
 
     def fetch(self, key, default=None):
         value = os.getenv(key, default)
@@ -90,7 +88,7 @@ class Environment(object):
     def get_app_settings(self):
         env = self.get_current_environment()
 
-        app_settings = "config.environments.{}".format(env)
+        app_settings = "{}.config.environments.{}".format(self.app_name, env)
         settings_file = importlib.import_module(app_settings)
 
         return settings_file.Settings()
