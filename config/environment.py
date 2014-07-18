@@ -97,4 +97,3 @@ class Environment(object):
         self.set_environment()
 
         return self.get_app_settings()
-
