@@ -64,7 +64,7 @@ class Environment(object):
     def set(self, key, value):
         os.environ[key] = value
 
-    def get_current_environment(self):
+    def get_environment_name(self):
         for item in sys.argv:
             if item.find('test') > -1:
                 return 'testing'
@@ -72,7 +72,7 @@ class Environment(object):
         return self.fetch('APP_ENV', 'development')
 
     def set_current_environment(self, filepath):
-        current_env = self.get_current_environment()
+        current_env = self.get_environment_name()
         self.set('APP_ENV', current_env)
 
     def set_environment(self, filepath=None):
@@ -86,7 +86,7 @@ class Environment(object):
             self.set_current_environment(filepath)
 
     def get_app_settings(self):
-        env = self.get_current_environment()
+        env = self.get_environment_name()
 
         app_settings = "{}.config.environments.{}".format(self.app_name, env)
         settings_file = importlib.import_module(app_settings)
