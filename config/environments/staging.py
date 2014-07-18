@@ -1,3 +1,4 @@
+from .base import BaseSettings
 
-class Settings(object):
+class Settings(BaseSettings):
     pass
