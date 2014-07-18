@@ -71,7 +71,7 @@ class Environment(object):
 
         return self.fetch('APP_ENV', 'development')
 
-    def set_current_environment(self, filepath):
+    def set_environment_name(self):
         current_env = self.get_environment_name()
         self.set('APP_ENV', current_env)
 
@@ -80,10 +80,10 @@ class Environment(object):
 
         try:
             self.parser.parse_file(filepath)
-            self.set_current_environment(filepath)
+            self.set_environment_name()
 
         except IOError:
-            self.set_current_environment(filepath)
+            self.set_environment_name()
 
     def get_app_settings(self):
         env = self.get_environment_name()
