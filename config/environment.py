@@ -27,7 +27,7 @@ class EnvironmentSettingsParser(object):
         return [self.parse(item.strip()) for item in values]
 
     def parse(self, value):
-        value = self.remove_quotes(value)
+        value = self.remove_quotes(str(value))
 
         if value.find('[') > -1 and value.find(']') > -1:
             return self.parse_list(value)
