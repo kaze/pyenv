@@ -1,6 +1,10 @@
 import importlib
-import os
+import re
+from shutil import move
 import sys
+from tempfile import mkstemp
+import os
+from os import remove
 
 
 class EnvironmentSettingsParser(object):
@@ -56,12 +60,35 @@ class Environment(object):
         self.app_name = app_name
         self.env_file = self.fetch('ENVIRONMENT_SETTINGS_FILE', settings_file)
 
+    def replace_or_write_env_line(self, search_string, newline):
+        source_file_path = self.env_file
+        fh, target_file_path = mkstemp()
+        pattern = re.compile(search_string)
+        updated = False
+
+        with open(target_file_path, 'w') as target_file:
+            with open(source_file_path, 'r') as source_file:
+                for line in source_file:
+                    if re.search(pattern, line) and not updated:
+                        target_file.write(newline)
+                        updated = True
+                        continue
+
+                    target_file.write(line)
+
+        remove(source_file_path)
+        move(target_file_path, source_file_path)
+
     def fetch(self, key, default=None):
         value = os.getenv(key, default)
 
         return self.parser.parse(value) if value else default
 
     def set(self, key, value):
+        value = str(value)
+        newline = '{} = {}'.format(key, value)
+
+        self.replace_or_write_env_line(key, newline)
         os.environ[key] = value
 
     def get_environment_name(self):

@@ -13,3 +13,9 @@ class BaseSettings(object):
             return self.env.fetch(name)
         else:
             return object.__getattr__(self, name)
+
+    def __setattr__(self, name, value):
+        if name in self.__dict__:
+            return self.env.set(name, value)
+        else:
+            return object.__setattr__(self, name, value)
