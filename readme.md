@@ -1,3 +1,14 @@
+## installation
+
+I made a pip-installable package from `pyenv`, but not published it, because it isn't mature enough. If you are in explorer mood, you can install it with:
+
+    pip install git+https://github.com/kaze/pyenv.git
+
+After this you can create a file named `.env` in your project's root directory, and get settings with:
+
+    from config import settings
+    print settings.HOME         #=> '/home/your-username'
+
 ## how does it work?
 
 `pyenv` uses an environment setting file (as default, this file named `.env`, and placed into your app's root directory) to load configuration values to the application's environment, and to use those freshly loaded values to figure out which set of settings it should give you to wire up the application.

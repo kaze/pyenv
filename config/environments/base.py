@@ -16,6 +16,6 @@ class BaseSettings(object):
 
     def __setattr__(self, name, value):
         if name in self.__dict__:
-            return self.env.set(name, value)
+            return self.env.write(name, value)
         else:
             return object.__setattr__(self, name, value)

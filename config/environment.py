@@ -55,10 +55,10 @@ class EnvironmentSettingsParser(object):
 
 
 class Environment(object):
-    def __init__(self, settings_file='.env', app_name=None):
+    def __init__(self, env_file=None, app_name=None):
         self.parser = EnvironmentSettingsParser()
         self.app_name = app_name
-        self.env_file = self.fetch('ENVIRONMENT_SETTINGS_FILE', settings_file)
+        self.env_file = env_file or self.fetch('ENVIRONMENT_SETTINGS_FILE', '.env')
 
     def replace_or_write_env_line(self, search_string, newline):
         source_file_path = self.env_file
@@ -86,10 +86,13 @@ class Environment(object):
 
     def set(self, key, value):
         value = str(value)
-        newline = '{} = {}'.format(key, value)
+        os.environ[key] = value
+
+    def write(self, key, value):
+        newline = '{} = {}'.format(key, str(value))
 
         self.replace_or_write_env_line(key, newline)
-        os.environ[key] = value
+        self.set(key, value)
 
     def get_environment_name(self):
         for item in sys.argv:

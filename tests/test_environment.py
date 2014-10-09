@@ -6,9 +6,20 @@ import test_helper
 from config.environment import Environment
 
 
+env_content = '''APP_ENV = "staging"
+APP_ROOT = $PWD
+
+# stress test
+'TEST_VARS' = " ( '2', '$HOME  ', yes, 'FALSE  ')  "
+'''
+
+
 class EnvironmentTest(unittest.TestCase):
     def setUp(self):
-        self.env = Environment()
+        env_file_path = 'tests/fixtures/.env'
+        self.env = Environment(env_file=env_file_path)
+        with open(env_file_path, 'w') as envfile:
+            envfile.write(env_content)
         self.env.set_environment()
 
     def tearDown(self):
