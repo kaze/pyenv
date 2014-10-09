@@ -45,7 +45,3 @@ class EnvironmentSettingsParserTest(unittest.TestCase):
 
         self.assertEqual(result, self.parser.get_value_pair(line))
 
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(EnvironmentSettingsParserTest)
-    unittest.TextTestRunner(verbosity=2).run(suite)

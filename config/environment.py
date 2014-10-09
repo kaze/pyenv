@@ -79,6 +79,10 @@ class Environment(object):
         remove(source_file_path)
         move(target_file_path, source_file_path)
 
+        if not updated:
+            with open(source_file_path, 'a') as source_file:
+                source_file.write(newline)
+
     def fetch(self, key, default=None):
         value = os.getenv(key, default)
 
@@ -89,7 +93,7 @@ class Environment(object):
         os.environ[key] = value
 
     def write(self, key, value):
-        newline = '{} = {}'.format(key, str(value))
+        newline = "{} = {}\n".format(key, str(value))
 
         self.replace_or_write_env_line(key, newline)
         self.set(key, value)

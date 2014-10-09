@@ -9,10 +9,10 @@ class BaseSettings(object):
         self.DEBUG = self.env.fetch('DEBUG', False)
 
     def __getattr__(self, name):
-        if not name in self.__dict__:
-            return self.env.fetch(name)
-        else:
+        if name in self.__dict__:
             return object.__getattr__(self, name)
+        else:
+            return self.env.fetch(name)
 
     def __setattr__(self, name, value):
         if name in self.__dict__:

@@ -3,7 +3,6 @@ import sys
 import unittest
 
 import test_helper
-from config.environment import Environment
 
 
 env_content = '''APP_ENV = "staging"
@@ -14,20 +13,7 @@ APP_ROOT = $PWD
 '''
 
 
-class EnvironmentTest(unittest.TestCase):
-    def setUp(self):
-        env_file_path = 'tests/fixtures/.env'
-        self.env = Environment(env_file=env_file_path)
-        with open(env_file_path, 'w') as envfile:
-            envfile.write(env_content)
-        self.env.set_environment()
-
-    def tearDown(self):
-        os.environ['APP_ENV'] = ''
-        os.environ['APP_ROOT'] = ''
-        os.environ['NONEXISTENT_SETTING'] = ''
-        os.environ['EXISTENT_SETTING'] = ''
-        os.environ['TEST_VARS'] = ''
+class EnvironmentTest(test_helper.EnvironmentBaseTest):
 
     def test_fetch(self):
         self.assertEqual(os.environ['HOME'], self.env.fetch('HOME'))
@@ -45,8 +31,3 @@ class EnvironmentTest(unittest.TestCase):
         self.env.set_environment('tests/fixtures/.env')
         self.assertEqual(os.environ['PWD'], os.environ['APP_ROOT'])
         self.assertEqual(['2', '/Users/kaze', True, False], self.env.fetch('TEST_VARS'))
-
-
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(EnvironmentTest)
-    unittest.TextTestRunner(verbosity=2).run(suite)

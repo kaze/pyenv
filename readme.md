@@ -42,8 +42,9 @@ Then every `UPPERCASE_WITH_UNDERSCORES` variable you wrote into the `.env` file 
     from app_name import settings
     settings.UPPERCASE_WITH_UNDERSCORES
 
-Actually, every environment variable will be accessible in this way. If you try to read a setting which does not exists, `pyenv` tries to read the value from the similarly named environment variable. It that does not exists, too, you just get a `None`.
+Actually, every environment variable will be accessible in this way. If you try to read a setting which does not exists, `pyenv` tries to read the value from the similarly named environment variable. If that does not exists, you just get a `None`.
 
 You can add new, environment specific settings to the corresponding `config/environments/environment_name.py` file, if you want that settings would be accessible on other machines, because you should not commit your `.env` file into the repository.
 
-Which of those python files will be loaded on settings-initialization? This depends on the value of the APP_ENV variable, which defaulted to 'development'. You can create new environments, too, if you create a new settings file for that environment in the `config/environments` directory, named after the new environment.
+Which of those python files would be loaded on settings-initialization? This depends on the value of the APP_ENV variable, which has 'development' as default value. You can create new environments, too, if you create a new settings file for that environment in the `config/environments` directory, named after the new environment.
+
