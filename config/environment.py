@@ -26,14 +26,14 @@ class EnvironmentSettingsParser(object):
         return value
 
     def parse_list(self, value):
-        values = value.strip('[').strip(']').split(',')
+        values = value.strip('(').strip(')').split(',')
 
         return [self.parse(item.strip()) for item in values]
 
     def parse(self, value):
         value = self.remove_quotes(str(value))
 
-        if value.find('[') > -1 and value.find(']') > -1:
+        if value.find('(') > -1 and value.find(')') > -1:
             return self.parse_list(value)
 
         return self.parse_simple(value)
@@ -115,7 +115,11 @@ class Environment(object):
     def get_app_settings(self):
         env = self.get_environment_name()
 
-        app_settings = "{}.config.environments.{}".format(self.app_name, env)
+        if self.app_name:
+            app_settings = "{}.config.environments.{}".format(self.app_name, env)
+        else:
+            app_settings = "config.environments.{}".format(env)
+
         settings_file = importlib.import_module(app_settings)
 
         return settings_file.Settings(environment=self)

@@ -15,8 +15,8 @@ In the loading phase `pyenv` expands environment variables (they should be in th
 
 Additionally, you can use flat arrays in the environment settings file:
 
-    PATHS = [$HOME/projects/other, /usr/local/lib]
-    ADMINS = ['me@example.com', 'you@example.com']
+    PATHS = ($HOME/projects/other, /usr/local/lib)
+    ADMINS = ('me@example.com', 'you@example.com')
 
 And booleans, too:
 

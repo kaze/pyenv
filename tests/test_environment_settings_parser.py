@@ -1,6 +1,7 @@
 import os
 import unittest
 
+import test_helper
 from config.environment import EnvironmentSettingsParser
 
 
@@ -27,20 +28,20 @@ class EnvironmentSettingsParserTest(unittest.TestCase):
         self.assertEqual(result, self.parser.parse_simple(original))
 
     def test_parse_list(self):
-        original = "[ '2', '$HOME  ', yes, 'FALSE  ']"
+        original = "( '2', '$HOME  ', yes, 'FALSE  ')"
         result = ['2', os.environ['HOME'], True, False]
 
         self.assertEqual(result, self.parser.parse_list(original))
 
     def test_parse(self):
-        original_list = "[ ' 2', ' $HOME  ', yes, 'FALSE  ']"
+        original_list = "( ' 2', ' $HOME  ', yes, 'FALSE  ')"
         result_list = ['2', os.environ['HOME'], True, False]
 
         self.assertEqual(result_list, self.parser.parse_list(original_list))
 
     def test_get_value_pair(self):
-        line = "'TEST_VARS' = \" [ '2', '$HOME  ', yes, 'FALSE  ']  \""
-        result = ("TEST_VARS", "[ '2', '{}  ', yes, 'FALSE  ']".format(os.environ['HOME']))
+        line = "'TEST_VARS' = \" ( '2', '$HOME  ', yes, 'FALSE  ')  \""
+        result = ("TEST_VARS", "( '2', '{}  ', yes, 'FALSE  ')".format(os.environ['HOME']))
 
         self.assertEqual(result, self.parser.get_value_pair(line))
 
