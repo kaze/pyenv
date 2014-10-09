@@ -1,13 +1,6 @@
 ## installation
 
-I made a pip-installable package from `pyenv`, but not published it, because it isn't mature enough. If you are in explorer mood, you can install it with:
-
-    pip install git+https://github.com/kaze/pyenv.git
-
-After this you can create a file named `.env` in your project's root directory, and get settings with:
-
-    from config import settings
-    print settings.HOME         #=> '/home/your-username'
+Just clone it, copy the config folder to your project's root directory.
 
 ## how does it work?
 

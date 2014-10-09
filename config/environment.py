@@ -123,9 +123,9 @@ class Environment(object):
         else:
             app_settings = "config.environments.{}".format(env)
 
-        settings_file = importlib.import_module(app_settings)
+        settings_module = importlib.import_module(app_settings)
 
-        return settings_file.Settings(environment=self)
+        return settings_module.Settings(environment=self)
 
     def get_settings(self):
         self.set_environment()
